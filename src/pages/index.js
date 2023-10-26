@@ -9,6 +9,7 @@ import Head from "next/head";
 import Script from "next/script";
 import { useCallback } from "react";
 import _ from "lodash";
+import MuiTextField from "src/components/MuiTextField.js";
 
 /* NATIVE(imports) { */
 
@@ -19,17 +20,23 @@ import styles from "./index.module.css";
 const Login = (props) => {
   const [usrn, setUsrn, usrnRef] = useStateRef();
 
+  const [password, setPassword, passwordRef] = useStateRef();
+
   const valueRef = useRef();
 
   /* NATIVE(declarations) { */
 
   /* } NATIVE */
 
-  const login = useCallback(async () => {}, []);
-
   const onUsrnChanged = useCallback(async (value) => {
     setUsrn(value);
   }, []);
+
+  const onPasswordChanged = useCallback(async (value) => {
+    setPassword(value);
+  }, []);
+
+  const login = useCallback(async () => {}, []);
 
   return (
     <>
@@ -82,6 +89,16 @@ const Login = (props) => {
           placeholder="Type in here"
           value={usrn || ""}
         ></input>
+        <input
+          className={styles["login-password"]}
+          onChange={_.throttle((e) => onPasswordChanged(e.target.value), 500)}
+          placeholder="Type in here"
+          value={password || ""}
+        ></input>
+        <MuiTextField
+          className={styles["login-mui-text-field"]}
+          placeholder={"Wow"}
+        />
         <button className={styles["login-sub"]} onClick={login}>
           button
         </button>
